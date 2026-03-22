@@ -1,4 +1,4 @@
-# SC910GS breakout board
+# ShutterEye
 
 A basic minimum **SC910GS** (1" / 3840x2160 / Global Shutter) board for Raspberry Pi.
 
