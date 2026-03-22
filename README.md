@@ -33,7 +33,7 @@ Also note that the camera calibration and tuning files are done with IR650 cut f
 
 ## Random(Yapping) Footnotes
 
-Yes I ran out of naming ideas because this sensor is essentially same as the GlobalEye (GMAX3412 1" 4K 30p global shutter), so I have to name it to ShutterEye instead. As for the different SC910GS is much suited for Single Board Computers compare to GMAX3412 beacuse no external exposure signals needed to trigger new frame. Additionally compare to GMAX3412 even though they are both ~1" 4K 30fps global shutter sensor, GMAX3412 has a larger 4096 x 3072 image compare to SC910GS 2840x2160.  
+Yes I ran out of naming ideas because this sensor is essentially same as the GlobalEye (GMAX3412 1" 4K 30p global shutter), so I have to name it to ShutterEye instead. As for the difference: SC910GS is much suited for Single Board Computers comparing to GMAX3412 beacuse no external exposure signals needed to trigger new frames. Another differences is that compare to GMAX3412 even though they are both ~1" 4K 30fps global shutter sensor, GMAX3412 has a larger 4096 x 3072 image compare to SC910GS at 3840x2160.  
 
 On the right is GMAX3412, On the left is SC910GS, you can see it is a bit narrower (16:9 vs 4:3)
 ![_DSC1365](https://github.com/user-attachments/assets/b48bea69-9c61-43fe-ac82-e3e3d8568ead)
